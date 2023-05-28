@@ -1,4 +1,4 @@
-# Vizier
+# WalletMate
 A prototype of a fintech mobile app for managing your finances.
 
 ![Vizier](https://cdn.dribbble.com/users/2041249/screenshots/16827492/media/986a5e3073542c34840e3cf8350961ab.jpg?compress=1&resize=1200x900&vertical=top)
@@ -40,8 +40,3 @@ To generate all the necessary files
 ## Environment versions
 - Dart 2.18+
 - Flutter 3.3.1
-
-## Links
-- [Merixstudio Mobile](https://www.merixstudio.com/services/mobile-app-development/)
-- [Dribbles](https://dribbble.com/Merixstudio/projects/5011721-Vizier)
-- [Invision](https://projects.invisionapp.com/share/4A10C0E0W629#/screens)
