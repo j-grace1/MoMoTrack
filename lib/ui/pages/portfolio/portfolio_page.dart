@@ -56,6 +56,18 @@ class PortfolioPage extends StatelessWidget with AutoRouteWrapper {
         title: Text(
           AppLoc.of(context).portfolioPageTitle,
         ),
+        actions: [
+          _buildNotificationsButton(
+            onPressed: () {
+              // TODO: Implement notifications button onPressed
+            },
+          ),
+          _buildMoreButton(
+            onPressed: () {
+              // TODO: Implement more button onPressed
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: AppDimensions.padding.defaultHorizontal().copyWith(
@@ -73,23 +85,31 @@ class PortfolioPage extends StatelessWidget with AutoRouteWrapper {
         SizedBox(
           height: AppDimensions.padding.defaultValue,
         ),
-        _buildPortfolioOverviewLoadedBody(
-          context,
-          portfolioOverview:
-              context.watch<MyPortfolioCubit>().state.portfolioOverview,
-        ),
-        _PortfolioMyWatchlistSection(
-          companyAssets:
-              context.watch<PortfolioWatchlistCubit>().state.companyAssets,
-          onCompanyPressed: (company) => context.pushRoute(
-            CompanyListingPageRoute(
-              companyAsset: company,
-            ),
-          ),
-          onMorePressed: () =>
-              AdaptiveAlertDialogFactory.showContentUnavailable(context),
-        )
       ],
+    );
+  }
+
+  Widget _buildNotificationsButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.notifications,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildMoreButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.more_vert,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
     );
   }
 

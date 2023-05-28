@@ -18,46 +18,102 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueGrey,
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              'WalletMate',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
+    return SliverAppBar(
+      backgroundColor: Colors.blueGrey,
+      expandedHeight: 56.0,
+      floating: false,
+      pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        centerTitle: false,
+        title: Text(
+          'WalletMate',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.normal,
           ),
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: AppColors.black,
-            ),
-            onPressed: onAlertsPressed,
-          ),
-          IconButton(
-            icon: CircleAvatar(
-              backgroundColor: AppColors.white,
-              backgroundImage: userModel?.avatar != null
-                  ? AssetImage(userModel!.avatar!)
-                  : null,
-              radius: 20.0,
-            ),
-            onPressed: onProfilePressed,
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.more_vert,
-              color: AppColors.black,
-            ),
-            onPressed: onMorePressed,
-          ),
-        ],
+        ),
+      ),
+      actions: [
+        _buildAlertsButton(
+          onPressed: onAlertsPressed,
+        ),
+        _buildMoreButton(
+          onPressed: () {
+            // TODO: Implement more button onPressed
+          },
+        ),
+      ],
+      leading: _buildProfileButton(
+        avatar: userModel?.avatar,
+        onPressed: onProfilePressed,
+      ),
+    );
+  }
+
+  Widget _buildNotificationsButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.notifications,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildMoreButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.more_vert,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildAlertsButton({
+    required VoidCallback onPressed,
+  }) {
+    return AspectRatio(
+      aspectRatio: 1,
+      child: AdaptiveButton(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+        ),
+        padding: EdgeInsets.zero,
+        onPressed: onPressed,
+        child: const Icon(
+          //TODO (MT): Change icon
+          Icons.notifications,
+          color: AppColors.black,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileButton({
+    required String? avatar,
+    required VoidCallback onPressed,
+  }) {
+    return AspectRatio(
+      aspectRatio: 1,
+      child: AdaptiveButton(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+        ),
+        onPressed: onPressed,
+        padding: EdgeInsets.zero,
+        child: avatar != null
+            ? CircleAvatar(
+                backgroundColor: AppColors.white,
+                backgroundImage: AssetImage(avatar),
+                radius: 20.0,
+              )
+            : const SizedBox.shrink(),
       ),
     );
   }

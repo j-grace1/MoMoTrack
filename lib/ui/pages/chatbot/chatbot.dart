@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vizier/ui/pages/chatbot/ChatGPT_flutter/lib/main_chatbot.dart';
 
 class ChatbotPage extends StatefulWidget {
   const ChatbotPage({Key? key}) : super(key: key);
@@ -29,49 +30,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
       appBar: AppBar(
         title: Text('Chatbot'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-              child: Text(
-                  'Hey, glad to have you here today, I am sophia, your finace chatbot, what can i do for you???')),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _chatMessages.length,
-              itemBuilder: (BuildContext context, int index) {
-                String message = _chatMessages[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(message),
-                  ),
-                );
-              },
-            ),
-          ),
-          Divider(),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'Type a message...',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              IconButton(
-                onPressed: _sendMessage,
-                icon: Icon(Icons.send),
-              ),
-            ],
-          ),
-        ],
-      ),
+      body: MyAppBot(),
     );
   }
 }

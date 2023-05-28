@@ -8,12 +8,14 @@ class OnboardingItemContent extends StatelessWidget {
   final String title;
   final String description;
   final String imageAsset;
+  final bool isActive;
 
   const OnboardingItemContent({
     required this.pageIndex,
     required this.title,
     required this.description,
     required this.imageAsset,
+    this.isActive = false,
   });
 
   @override
@@ -21,13 +23,13 @@ class OnboardingItemContent extends StatelessWidget {
     return Column(
       children: [
         const Spacer(),
-        _buildTitle(context),
+        SvgPicture.asset(imageAsset),
         SizedBox(
           height: AppDimensions.padding.defaultValue,
         ),
-        _buildDescription(context),
+        _buildTitle(context),
         const Spacer(),
-        SvgPicture.asset(imageAsset),
+        _buildDescription(context),
       ],
     );
   }

@@ -15,6 +15,7 @@ import 'package:vizier/ui/widgets/adaptive/adaptive_app_bar.dart';
 import 'package:vizier/ui/widgets/adaptive/adaptive_button.dart';
 
 import '../chatbot/floatingActionBar.dart';
+import './mainpage.dart';
 
 part 'widgets/offer_cell.dart';
 
@@ -42,20 +43,45 @@ class OffersPage extends StatelessWidget implements AutoRouteWrapper {
           AppLoc.of(context).offersPageTitle,
           style: AppTextStyles.h5(),
         ),
-      ),
-      body: BlocBuilder<OfferListCubit, OfferListState>(
-        builder: (_, state) => state.maybeMap(
-          loaded: (state) => _buildOffers(
-            context,
-            offers: state.offers,
+        actions: [
+          _buildNotificationsButton(
+            onPressed: () {
+              // TODO: Implement notifications button onPressed
+            },
           ),
-          loading: (_) => const Center(
-            child: CircularProgressIndicator(),
+          _buildMoreButton(
+            onPressed: () {
+              // TODO: Implement more button onPressed
+            },
           ),
-          orElse: () => const SizedBox.shrink(),
-        ),
+        ],
       ),
+      body: MyFuturePage(),
       floatingActionButton: CustomFloatingActionButton(),
+    );
+  }
+
+  Widget _buildNotificationsButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.notifications,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildMoreButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.more_vert,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
     );
   }
 

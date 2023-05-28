@@ -5,6 +5,7 @@ class _SvgImages {
 
   String get _path => 'assets/svgs';
   String get manageMoney => '$_path/manage_money.svg';
+  String get firstOnboardingsvg => '$_path/stay_focused.svg';
   String get allMoney => '$_path/all_money.svg';
   String get chip => '$_path/chip.svg';
   String get stayFocused => '$_path/stay_focused.svg';

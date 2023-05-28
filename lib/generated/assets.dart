@@ -10,6 +10,7 @@ class Assets {
       'assets/mocks/finances/my_account_image.png';
   static const String financesProfit = 'assets/mocks/finances/profit.png';
   static const String financesSalary = 'assets/mocks/finances/salary.png';
+
   static const String portfolioGoogleLogo =
       'assets/mocks/portfolio/google_logo.png';
   static const String portfolioNetflixLogo =
@@ -23,6 +24,8 @@ class Assets {
   static const String svgsBitcoin = 'assets/svgs/bitcoin.svg';
   static const String svgsCardFace = 'assets/svgs/card_face.svg';
   static const String svgsChip = 'assets/svgs/chip.svg';
+  static const String svgsFirstOnboardingImages =
+      'assets/svgs/FirstOnboardingImages.png';
   static const String svgsLoans = 'assets/svgs/loans.svg';
   static const String svgsManageMoney = 'assets/svgs/manage_money.svg';
   static const String svgsMoneyLogin = 'assets/svgs/money_login.svg';

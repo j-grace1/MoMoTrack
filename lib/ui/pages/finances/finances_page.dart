@@ -17,6 +17,8 @@ import 'package:vizier/ui/widgets/adaptive/adaptive_app_bar.dart';
 import 'package:vizier/utils/currency_formatter_util.dart';
 import 'package:vizier/utils/date_formatter_util.dart';
 
+import '../chatbot/floatingActionBar.dart';
+
 part 'widgets/finances_header.dart';
 part 'widgets/finances_status_summary.dart';
 
@@ -61,6 +63,18 @@ class FinancesPage extends StatelessWidget with AutoRouteWrapper {
         title: Text(
           AppLoc.of(context).financesPageTitle,
         ),
+        actions: [
+          _buildNotificationsButton(
+            onPressed: () {
+              // TODO: Implement notifications button onPressed
+            },
+          ),
+          _buildMoreButton(
+            onPressed: () {
+              // TODO: Implement more button onPressed
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -68,6 +82,31 @@ class FinancesPage extends StatelessWidget with AutoRouteWrapper {
           child: _buildBody(context),
         ),
       ),
+      floatingActionButton: CustomFloatingActionButton(),
+    );
+  }
+
+  Widget _buildNotificationsButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.notifications,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildMoreButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.more_vert,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
     );
   }
 

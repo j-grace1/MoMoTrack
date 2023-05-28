@@ -43,7 +43,7 @@ class _MainAppPageState extends State<MainAppPage> {
       return const OnboardingPageRoute();
     } else {
       if (widget.isSessionActive) {
-        return const BottomNavigationPageRoute();
+        return const OnboardingPageRoute();
       }
       return const AuthenticationLoginPageRoute();
     }

@@ -91,11 +91,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
-          flex: 8,
+          flex: 50,
           child: _buildPageView(),
         ),
         const Spacer(
-          flex: 2,
+          flex: 10,
         ),
         _buildPageControl(
           currentPage: currentPage,
@@ -120,22 +120,25 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   Widget _buildPageView() {
-    return PageView.builder(
-      controller: controller,
-      itemCount: OnboardingItem.values.length,
-      itemBuilder: (context, index) {
-        final OnboardingItem currentItem = OnboardingItem.values[index];
-        return Padding(
-          padding: AppDimensions.padding.defaultHorizontal(),
-          child: OnboardingItemContent(
-            pageIndex: index,
-            title: currentItem.title(context),
-            description: currentItem.description(context),
-            imageAsset: currentItem.image(context),
-          ),
-        );
-      },
-      onPageChanged: (current) => _onboardingCubit.changePage(current),
+    return SizedBox(
+      height: 6000,
+      child: PageView.builder(
+        controller: controller,
+        itemCount: OnboardingItem.values.length,
+        itemBuilder: (context, index) {
+          final OnboardingItem currentItem = OnboardingItem.values[index];
+          return Padding(
+            padding: AppDimensions.padding.defaultHorizontal(),
+            child: OnboardingItemContent(
+              imageAsset: currentItem.image(context),
+              pageIndex: index,
+              title: currentItem.title(context),
+              description: currentItem.description(context),
+            ),
+          );
+        },
+        onPageChanged: (current) => _onboardingCubit.changePage(current),
+      ),
     );
   }
 

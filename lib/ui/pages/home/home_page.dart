@@ -8,13 +8,12 @@ import 'package:vizier/cubits/goals/goals_cubit.dart';
 import 'package:vizier/cubits/retirement_plan/retirement_plan_cubit.dart';
 import 'package:vizier/cubits/user/user_cubit.dart';
 import 'package:vizier/ui/modals/alert_dialog/adaptive_alert_dialog_factory.dart';
-import 'package:vizier/ui/pages/chatbot/floatingActionBar.dart';
 import 'package:vizier/ui/pages/home/home_tab_item.dart';
 import 'package:vizier/ui/pages/home/widgets/home_app_bar.dart';
 import 'package:vizier/ui/pages/home/widgets/home_tab_bar.dart';
 import 'package:vizier/ui/pages/profile/profile_page.dart';
-import 'package:vizier/ui/pages/notifications/notifications.dart';
-import 'package:vizier/ui/pages/chatbot/chatbot.dart';
+
+import '../chatbot/floatingActionBar.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = 'home-page';
@@ -48,12 +47,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             HomeAppBar(
               userModel: context.watch<UserCubit>().state.user,
-              onAlertsPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NotificationsPage()),
-                );
-              },
+              onAlertsPressed: () =>
+                  AdaptiveAlertDialogFactory.showContentUnavailable(context),
               onProfilePressed: () =>
                   context.router.pushNamed(ProfilePage.route),
               onMorePressed: () {},

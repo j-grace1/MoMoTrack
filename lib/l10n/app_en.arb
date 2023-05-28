@@ -69,7 +69,7 @@
   "@inputPasswordLabel": {},
 
   "onboardingTrackMoneyTitle": "Track & manage your money",
-  "@onboardingTrackMoneyTitle": {},
+  "@TrackMoneyTitle": {},
   "onboardingTrackMoneyDescription": "Quickly and easily find information about all your finances.",
   "@onboardingTrackMoneyDescription": {},
   "onboardingStayFocusedTitle": "Stay focused on your financial goals",
@@ -82,7 +82,7 @@
   "@onboardingAllMoneyDescription": {},
   "oboardingSkipButton": "Skip",
   "@oboardingSkipButton": {},
-  "oboardingBeginButton": "Begin",
+  "oboardingBeginButton": "Get Started",
   "@oboardingBeginButton": {},
   
   "logInPageHeaderTitle": "Welcome back",
@@ -108,11 +108,11 @@
   "bottomBarItemTransactionsTitle": "Transactions",
   "@bottomBarItemTransactionsTitle": {},
 
-  "homeTabItemWalletTitle": "My Wallet",
+  "homeTabItemWalletTitle": "",
   "@homeTabItemWalletTitle": {},
-  "homeTabItemFutureTitle": "My Track",
+  "homeTabItemFutureTitle": "",
   "@homeTabItemFutureTitle": {},
-  "homeTabItemAddTitle": "My Savings",
+  "homeTabItemAddTitle": "",
   "@homeTabItemAddTitle": {},
 
   "homeMyWalletAssetPerformanceTitle": "Assets performance",

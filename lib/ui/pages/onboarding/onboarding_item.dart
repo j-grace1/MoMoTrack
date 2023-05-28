@@ -3,6 +3,7 @@ import 'package:vizier/config/styles/images/app_images.dart';
 import 'package:vizier/l10n/app_loc.dart';
 
 enum OnboardingItem {
+  customPage,
   trackMoney,
   stayFocused,
   allMoney,
@@ -11,6 +12,8 @@ enum OnboardingItem {
 extension OnboardingItemExtension on OnboardingItem {
   String title(BuildContext context) {
     switch (this) {
+      case OnboardingItem.customPage:
+        return 'Save more and Spent less';
       case OnboardingItem.trackMoney:
         return AppLoc.of(context).onboardingTrackMoneyTitle;
       case OnboardingItem.stayFocused:
@@ -26,6 +29,8 @@ extension OnboardingItemExtension on OnboardingItem {
 
   String description(BuildContext context) {
     switch (this) {
+      case OnboardingItem.customPage:
+        return 'description';
       case OnboardingItem.trackMoney:
         return AppLoc.of(context).onboardingTrackMoneyDescription;
       case OnboardingItem.stayFocused:
@@ -41,6 +46,8 @@ extension OnboardingItemExtension on OnboardingItem {
 
   String image(BuildContext context) {
     switch (this) {
+      case OnboardingItem.customPage:
+        return AppImages.svg.firstOnboardingsvg;
       case OnboardingItem.trackMoney:
         return AppImages.svg.manageMoney;
       case OnboardingItem.stayFocused:

@@ -9,6 +9,7 @@ class _Padding {
   double get bigValue => 24.0;
   double get biggerValue => 32.0;
   double get biggestValue => 48.0;
+  double get onboardingSizedBoxValue => 600;
 
   EdgeInsets defaultHorizontal() {
     return EdgeInsets.symmetric(

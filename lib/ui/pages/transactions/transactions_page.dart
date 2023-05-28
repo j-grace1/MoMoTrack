@@ -41,27 +41,45 @@ class TransactionsPage extends StatelessWidget implements AutoRouteWrapper {
           'My Transactions',
           style: AppTextStyles.h5(),
         ),
-      ),
-      body: Column(
-        children: [
-          ListTile(
-            leading: Icon(Icons.save),
-            title: Text('Deposit'),
-            subtitle: Row(
-              children: [Text('sunday'), Text('Time')],
-            ),
-            trailing: Column(
-              children: [
-                Row(
-                  children: [],
-                ),
-                Text('200 XAF')
-              ],
-            ),
-          )
+        actions: [
+          _buildNotificationsButton(
+            onPressed: () {
+              // TODO: Implement notifications button onPressed
+            },
+          ),
+          _buildMoreButton(
+            onPressed: () {
+              // TODO: Implement more button onPressed
+            },
+          ),
         ],
       ),
+      body: Column(),
       floatingActionButton: CustomFloatingActionButton(),
+    );
+  }
+
+  Widget _buildNotificationsButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.notifications,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  Widget _buildMoreButton({
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(
+        Icons.more_vert,
+        color: AppColors.black,
+      ),
+      onPressed: onPressed,
     );
   }
 
