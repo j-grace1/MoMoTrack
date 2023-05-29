@@ -11,6 +11,7 @@ import 'package:vizier/config/styles/text_styles/app_text_styles.dart';
 import 'package:vizier/cubits/offers/list/offer_list_cubit.dart';
 import 'package:vizier/data/models/offer/offer_model.dart';
 import 'package:vizier/l10n/app_loc.dart';
+import 'package:vizier/ui/pages/MoMoTransactions/MTN/mtnTransactions.dart';
 import 'package:vizier/ui/widgets/adaptive/adaptive_app_bar.dart';
 import 'package:vizier/ui/widgets/adaptive/adaptive_button.dart';
 import 'package:auto_route/auto_route.dart';
@@ -54,7 +55,7 @@ class TransactionsPage extends StatelessWidget implements AutoRouteWrapper {
           ),
         ],
       ),
-      body: Column(),
+      body: PerformTransactionSection(),
       floatingActionButton: CustomFloatingActionButton(),
     );
   }

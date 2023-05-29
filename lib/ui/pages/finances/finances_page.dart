@@ -13,6 +13,7 @@ import 'package:vizier/cubits/my_finances/my_finances_cubit.dart';
 import 'package:vizier/data/models/finances_overview/finances_overview_model.dart';
 import 'package:vizier/l10n/app_loc.dart';
 import 'package:vizier/ui/pages/finances/widgets/finances_history_chart.dart';
+import 'package:vizier/ui/pages/home/my_future/home_my_future_content.dart';
 import 'package:vizier/ui/widgets/adaptive/adaptive_app_bar.dart';
 import 'package:vizier/utils/currency_formatter_util.dart';
 import 'package:vizier/utils/date_formatter_util.dart';
@@ -148,16 +149,21 @@ class FinancesPage extends StatelessWidget with AutoRouteWrapper {
         SizedBox(
           height: AppDimensions.padding.bigValue,
         ),
-        _FinancesStatusSummary(
-          spent: financesOverview.spent,
-          since: financesOverview.since,
-        ),
-        SizedBox(
-          height: AppDimensions.padding.defaultValue,
-        ),
-        _FinancesStatusSummary(
-          spent: financesOverview.spent,
-          since: financesOverview.since,
+        Row(
+          children: [
+            Expanded(
+              child: _FinancesStatusSummary(
+                spent: financesOverview.spent,
+                since: financesOverview.since,
+              ),
+            ),
+            Expanded(
+              child: _FinancesStatusSummary(
+                spent: financesOverview.spent,
+                since: financesOverview.since,
+              ),
+            ),
+          ],
         ),
         SizedBox(
           height: AppDimensions.padding.defaultValue,
