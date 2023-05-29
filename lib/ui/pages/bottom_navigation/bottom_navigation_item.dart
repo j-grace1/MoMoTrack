@@ -4,7 +4,7 @@ import 'package:vizier/config/router/app_router.dart';
 import 'package:vizier/l10n/app_loc.dart';
 import 'package:vizier/ui/pages/transactions/transactions_page.dart';
 
-enum BottomNavigationItem { Home, Finances, Future, offers, transactions }
+enum BottomNavigationItem { offers, Future, Home, Finances, transactions }
 
 extension BottomNavigationItemExtension on BottomNavigationItem {
   String title(BuildContext context) {

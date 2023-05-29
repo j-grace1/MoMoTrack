@@ -66,6 +66,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Divider(
+          thickness: 45,
+        ),
         Padding(
           padding: EdgeInsets.all(AppDimensions.padding.defaultValue),
           child: HomeTabBar(

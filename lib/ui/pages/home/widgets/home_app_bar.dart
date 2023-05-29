@@ -19,7 +19,6 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.blueGrey,
       expandedHeight: 56.0,
       floating: false,
       pinned: true,
@@ -28,7 +27,7 @@ class HomeAppBar extends StatelessWidget {
         title: Text(
           'WalletMate',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.purple.shade900,
             fontSize: 20,
             fontWeight: FontWeight.normal,
           ),
