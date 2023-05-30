@@ -56,14 +56,14 @@ class _FinancesMocks {
           currentDate,
           currentDate.add(
             const Duration(
-              days: 6,
+              days: 7,
             ),
           ),
         );
         break;
       case DateTime.monthsPerYear:
         data = _generateRetirementData(
-          5,
+          7,
           currentDate,
           currentDate.add(
             const Duration(
@@ -74,7 +74,7 @@ class _FinancesMocks {
         break;
       case DateTime.monthsPerYear * 30:
         data = data = _generateRetirementData(
-          5,
+          6,
           currentDate,
           currentDate.add(
             const Duration(
@@ -85,7 +85,7 @@ class _FinancesMocks {
         break;
       default:
         data = data = _generateRetirementData(
-          5,
+          6,
           currentDate,
           currentDate.add(
             const Duration(
@@ -103,8 +103,11 @@ class _FinancesMocks {
 }
 
 extension /*Retirement Plan Data tools*/ on _FinancesMocks {
-  List<RetirementPlanDataModel> _generateRetirementData(int count, DateTime from, DateTime to) {
-    final int frequency = (to.millisecondsSinceEpoch - from.millisecondsSinceEpoch) ~/ (count - 1);
+  List<RetirementPlanDataModel> _generateRetirementData(
+      int count, DateTime from, DateTime to) {
+    final int frequency =
+        (to.millisecondsSinceEpoch - from.millisecondsSinceEpoch) ~/
+            (count - 1);
     return List.generate(
       count,
       (index) => RetirementPlanDataModel(

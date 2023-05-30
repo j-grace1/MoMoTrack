@@ -74,7 +74,7 @@ class ChartFactory {
         ((items.firstOrNull?.date)?.millisecondsSinceEpoch)?.toDouble() ?? 0.0;
     final double to =
         ((items.lastOrNull?.date)?.millisecondsSinceEpoch)?.toDouble() ?? 0.0;
-    final double frequency = (to - from) / (model.history.length - 1);
+    final double frequency = (2 * to - from) / (model.history.length - 1);
     return [
       ChartAxisLayer(
         settings: ChartAxisSettings(
@@ -115,6 +115,11 @@ class ChartFactory {
                   value: element.spent,
                   x: element.date.millisecondsSinceEpoch.toDouble(),
                 ),
+                ChartGroupBarDataItem(
+                  color: AppColors.secondary100,
+                  value: element.spent,
+                  x: element.date.millisecondsSinceEpoch.toDouble(),
+                ),
               ],
             )
             .toList(),
@@ -128,7 +133,7 @@ class ChartFactory {
           backgroundColor: Colors.white,
           currentPos: (item) => item.currentValuePos,
           currentSize: (item) => item.currentValueSize,
-          onTextValue: (item) => 'XAF {item.value.toStringAsFixed(2)}',
+          onTextValue: (item) => 'XAF ${item.value.toStringAsFixed(2)}',
           marginBottom: 6.0,
           padding: const EdgeInsets.symmetric(
             horizontal: 12.0,
@@ -317,6 +322,20 @@ class ChartFactory {
       ChartLineLayer(
         items: retirementPlanModel.data
             .map(
+              (elements) => ChartLineDataItem(
+                value: elements.value,
+                x: elements.date.millisecondsSinceEpoch.toDouble(),
+              ),
+            )
+            .toList(),
+        settings: const ChartLineSettings(
+          color: AppColors.primary100,
+          thickness: 3.0,
+        ),
+      ),
+      ChartLineLayer(
+        items: retirementPlanModel.data
+            .map(
               (element) => ChartLineDataItem(
                 value: element.value,
                 x: element.date.millisecondsSinceEpoch.toDouble(),
@@ -324,8 +343,8 @@ class ChartFactory {
             )
             .toList(),
         settings: const ChartLineSettings(
-          color: AppColors.primary100,
-          thickness: 4.0,
+          color: AppColors.secondary100,
+          thickness: 3.0,
         ),
       ),
       ChartTooltipLayer(

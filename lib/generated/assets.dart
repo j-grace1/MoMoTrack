@@ -2,6 +2,8 @@
 class Assets {
   Assets._();
 
+  static const String financesExpense =
+      'assets/mocks/finances/expense (1).jpeg';
   static const String financesGrowth = 'assets/mocks/finances/growth.png';
   static const String financesInvestmentsImage =
       'assets/mocks/finances/investments_image.png';
@@ -10,7 +12,6 @@ class Assets {
       'assets/mocks/finances/my_account_image.png';
   static const String financesProfit = 'assets/mocks/finances/profit.png';
   static const String financesSalary = 'assets/mocks/finances/salary.png';
-
   static const String portfolioGoogleLogo =
       'assets/mocks/portfolio/google_logo.png';
   static const String portfolioNetflixLogo =
@@ -37,10 +38,14 @@ class Assets {
   static const String svgsStayFocused = 'assets/svgs/stay_focused.svg';
   static const String transactionsAppleLogo =
       'assets/mocks/transactions/apple_logo.png';
+  static const String transactionsMobileMoLogo =
+      'assets/mocks/transactions/MobileMoLogo.jpeg';
   static const String transactionsNikeLogo =
       'assets/mocks/transactions/nike_logo.png';
   static const String transactionsPaypalLogo =
       'assets/mocks/transactions/paypal_logo.png';
+  static const String transactionsPerformTransactions =
+      'assets/mocks/transactions/Perform_transactions.png';
   static const String transactionsUberEatsLogo =
       'assets/mocks/transactions/uber_eats_logo.png';
   static const String transactionsVodafoneLogo =
