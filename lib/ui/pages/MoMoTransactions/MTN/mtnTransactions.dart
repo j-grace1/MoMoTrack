@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vizier/generated/assets.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:vizier/data/models/transaction/MyOwnTransactionData/transactionData.dart';
 
 class PerformTransactionSection extends StatelessWidget {
+  final DateTime selectedDate; // Add this variable
+
+  PerformTransactionSection({required this.selectedDate});
   @override
   Widget build(BuildContext context) {
     final String imagePath = Assets.transactionsPerformTransactions;
@@ -23,6 +28,10 @@ class PerformTransactionSection extends StatelessWidget {
           Divider(color: dividerColor, height: 40),
           TransactionHistorySection(),
           Divider(color: dividerColor, height: 40),
+          AdditionalTransactionSection(selectedDate: selectedDate),
+          Divider(color: dividerColor, height: 40),
+          TransactionButtons(),
+          Divider(color: dividerColor, height: 100),
         ],
       ),
     );
@@ -217,6 +226,10 @@ class _TransactionHistorySectionState extends State<TransactionHistorySection> {
               fontWeight: FontWeight.w500,
             ),
           ),
+          trailing: CircleAvatar(
+            backgroundColor: Colors.black,
+            child: Icon(Icons.add),
+          ),
         ),
         Divider(color: dividerColor, height: 40),
         Row(
@@ -285,143 +298,241 @@ class _TransactionHistorySectionState extends State<TransactionHistorySection> {
   }
 }
 
-class CustomBottomSheet extends StatelessWidget {
+enum TransactionType {
+  income,
+  expense,
+}
+
+class AdditionalTransactionSection extends StatelessWidget {
+  final DateTime selectedDate; // Add this variable
+
+  AdditionalTransactionSection(
+      {required this.selectedDate}); // Update the constructor
+  @override
+  Widget build(BuildContext context) {
+    DateTime defaultDate = selectedDate ?? DateTime.now();
+    String formattedDate = DateFormat('dd/MM/yyyy')
+        .format(selectedDate); // Format the selected date
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'History for ${DateFormat('dd/MM/yyyy').format(defaultDate)}',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: sampleTransactions.length,
+            itemBuilder: (context, index) {
+              Transaction transaction = sampleTransactions[index];
+              return TransactionCard(transaction: transaction);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TransactionCard extends StatefulWidget {
+  final Transaction transaction;
+
+  const TransactionCard({required this.transaction});
+
+  @override
+  _TransactionCardState createState() => _TransactionCardState();
+}
+
+class _TransactionCardState extends State<TransactionCard> {
+  bool isExpanded = false;
+
+  void showCategoriesModal() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomBottomSheet(
+          onApply: () {
+            Navigator.pop(context); // Close the bottom sheet
+            Navigator.pop(context); // Close the first modal
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          ListTile(
+            onTap: () {
+              setState(() {
+                isExpanded = !isExpanded;
+              });
+            },
+            leading: Icon(
+              widget.transaction.isExpense
+                  ? Icons.arrow_circle_up
+                  : Icons.arrow_circle_down,
+              color: widget.transaction.isExpense ? Colors.red : Colors.green,
+            ),
+            title: Text(widget.transaction.title),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.transaction.subtitle
+                      .toString(), // Replace with desired date format
+                  style: TextStyle(fontSize: 12),
+                ),
+                SizedBox(height: 4),
+              ],
+            ),
+            trailing: Column(
+              children: [
+                Text(
+                  '${widget.transaction.currencySymbol}${widget.transaction.amount}',
+                  style: TextStyle(
+                    color: widget.transaction.isExpense
+                        ? Colors.red
+                        : Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  widget.transaction.time
+                      .toString(), // Replace with desired date format
+                  style: TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          if (isExpanded) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      // Handle message icon tap
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.white,
+                            title: Text('Transaction Message'),
+                            content: Text(widget.transaction.messageBody),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.download,
+                                      color: Colors.black,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Close'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Icon(Icons.message),
+                        Text('Message'),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap:
+                        showCategoriesModal, // Updated to showCategoriesModal
+                    child: Column(
+                      children: [
+                        Icon(Icons.category),
+                        Text('Categorize'),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      // Handle asset item tap
+                      // Navigate to create asset form
+                    },
+                    child: Column(
+                      children: [
+                        Icon(Icons.add),
+                        Text('Asset'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class CustomBottomSheet extends StatefulWidget {
+  final VoidCallback onApply;
+
+  const CustomBottomSheet({required this.onApply});
+
+  @override
+  _CustomBottomSheetState createState() => _CustomBottomSheetState();
+}
+
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
+  int selectedCategories = 0;
+
+  void navigateToFirstModal() {
+    Navigator.pop(context); // Close the second modal
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => CustomBottomSheet(
+        onApply: () {},
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+      // ... rest of the code ...
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Filter Transactions',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Reset button logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey.shade200,
-                  ),
-                  child: Text('Reset'),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Filter By',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Income button logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey.shade200,
-                    onPrimary: Colors.black,
-                  ),
-                  child: Text('Income'),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    // Expense button logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey.shade200,
-                    onPrimary: Colors.black,
-                  ),
-                  child: Text('Expense'),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Sort By',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Highest button logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey.shade200,
-                    onPrimary: Colors.black,
-                  ),
-                  child: Text('Highest'),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    // Lowest button logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey.shade200,
-                    onPrimary: Colors.black,
-                  ),
-                  child: Text('Lowest'),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    // Newest button logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey.shade200,
-                    onPrimary: Colors.black,
-                  ),
-                  child: Text('Newest'),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    // Oldest button logic
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey.shade200,
-                    onPrimary: Colors.black,
-                  ),
-                  child: Text('Oldest'),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Category',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
+            // ... rest of the code ...
             Row(
               children: [
                 Expanded(
@@ -437,37 +548,84 @@ class CustomBottomSheet extends StatelessWidget {
                         Text('Choose Category'),
                         Row(
                           children: [
-                            Text('0 Selected'),
-                            Icon(Icons.arrow_forward_ios, size: 16),
+                            Text('$selectedCategories Selected'),
+                            Icon(Icons.arrow_drop_down),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 30),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Apply button logic
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.purple,
-                ),
-                child: Text(
-                  'Apply',
-                  style: TextStyle(
-                    color: Colors.white,
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    // Apply button logic
+                    navigateToFirstModal(); // Navigate to the first modal (bottom sheet)
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    onPrimary: Colors.white,
                   ),
+                  child: Text('Apply'),
                 ),
-              ),
+              ],
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class TransactionButtons extends StatefulWidget {
+  @override
+  _TransactionButtonsState createState() => _TransactionButtonsState();
+}
+
+class _TransactionButtonsState extends State<TransactionButtons> {
+  final ScrollController _scrollController = ScrollController();
+
+  void scrollToTop() {
+    _scrollController.animateTo(
+      0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: 10,
+        ),
+        CircleAvatar(
+          child: IconButton(
+            onPressed: () {
+              // Add your logic for previous button here
+            },
+            icon: Icon(Icons.arrow_left),
+          ),
+        ),
+        CircleAvatar(
+          child: IconButton(
+            onPressed: () {
+              // Add your logic for next button here
+            },
+            icon: Icon(Icons.arrow_right),
+          ),
+        ),
+        FloatingActionButton(
+          backgroundColor: Colors.grey,
+          onPressed: scrollToTop,
+          child: Icon(Icons.arrow_upward),
+        ),
+        SizedBox(
+          width: 0.2,
+        ),
+      ],
     );
   }
 }
